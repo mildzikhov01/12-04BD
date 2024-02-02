@@ -1,4 +1,4 @@
-# Домашнее задание к занятию "SQL. Часть 1" - `Мильдзихов Сергей`
+# Домашнее задание к занятию "SQL. Часть 2" - `Мильдзихов Сергей`
 
 
 ---
@@ -15,10 +15,18 @@
 ### Ответ
 
 > SELECT s.fam, s.nam, m.city, COUNT(*) AS count_users
+
+
 > FROM users u
+
+
 > JOIN shops m ON u.id_shops = m.id
+
+
 > JOIN sotr s ON m.id_sotr = s.id
+
 > GROUP BY m.id
+
 > HAVING COUNT(*) > 300;
 
 
@@ -30,7 +38,9 @@
 ### Ответ
 
 > SELECT COUNT(film_id) AS 'number of films'
+
 > FROM (SELECT *, AVG(LENGTH) OVER () AS TIME FROM film) t
+
 > WHERE TIME < LENGTH;
 
 
@@ -42,7 +52,11 @@
 ### Ответ
 
 > SELECT MONTH(p.payment_date) AS month, SUM(p.amount) AS 'total amount', count(p.rental_id) AS 'rentals by month'
+
 > FROM payment p
+
 > GROUP BY MONTH(p.payment_date)
+
 > ORDER BY SUM(p.amount) DESC
+
 > LIMIT 1;
