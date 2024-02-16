@@ -15,12 +15,26 @@
 ### Ответ
 
 SELECT CONCAT(s.last_name, ' ', s.first_name) AS staff, c.city, COUNT(c2.store_id) AS custumers
+
+
 FROM customer c2
+
+
 INNER JOIN store s2 ON s2.store_id = c2.store_id
+
+
 INNER JOIN staff s ON s.staff_id = s2.manager_staff_id 
+
+
 INNER JOIN address a ON s.address_id = a.address_id
+
+
 INNER JOIN city c ON c.city_id = a.city_id
+
+
 GROUP BY c2.store_id
+
+
 HAVING COUNT(c2.store_id) > 300;
 
 
@@ -32,7 +46,11 @@ HAVING COUNT(c2.store_id) > 300;
 ### Ответ
 
 SELECT COUNT(f.title) 
+
+
 FROM film f
+
+
 WHERE f.`length` > (SELECT AVG(`length`) FROM film)
 
 
@@ -44,7 +62,15 @@ WHERE f.`length` > (SELECT AVG(`length`) FROM film)
 ### Ответ
 
 SELECT MONTH(payment_date), SUM(p.amount), COUNT(p.rental_id) 
+
+
 FROM payment p
+
+
 GROUP BY MONTH(payment_date)
+
+
 ORDER BY SUM(p.amount ) DESC
+
+
 LIMIT 1;
