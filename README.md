@@ -14,20 +14,14 @@
 
 ### Ответ
 
-> SELECT s.fam, s.nam, m.city, COUNT(*) AS count_users
-
-
-> FROM users u
-
-
-> JOIN shops m ON u.id_shops = m.id
-
-
-> JOIN sotr s ON m.id_sotr = s.id
-
-> GROUP BY m.id
-
-> HAVING COUNT(*) > 300;
+SELECT CONCAT(s.last_name, ' ', s.first_name) AS staff, c.city, COUNT(c2.store_id) AS custumers
+FROM customer c2
+INNER JOIN store s2 ON s2.store_id = c2.store_id
+INNER JOIN staff s ON s.staff_id = s2.manager_staff_id 
+INNER JOIN address a ON s.address_id = a.address_id
+INNER JOIN city c ON c.city_id = a.city_id
+GROUP BY c2.store_id
+HAVING COUNT(c2.store_id) > 300;
 
 
 ### Задание 2
@@ -37,11 +31,9 @@
 
 ### Ответ
 
-> SELECT COUNT(film_id) AS 'number of films'
-
-> FROM (SELECT *, AVG(LENGTH) OVER () AS TIME FROM film) t
-
-> WHERE TIME < LENGTH;
+SELECT COUNT(f.title) 
+FROM film f
+WHERE f.`length` > (SELECT AVG(`length`) FROM film)
 
 
 ### Задание 3
@@ -51,12 +43,8 @@
 
 ### Ответ
 
-> SELECT MONTH(p.payment_date) AS month, SUM(p.amount) AS 'total amount', count(p.rental_id) AS 'rentals by month'
-
-> FROM payment p
-
-> GROUP BY MONTH(p.payment_date)
-
-> ORDER BY SUM(p.amount) DESC
-
-> LIMIT 1;
+SELECT MONTH(payment_date), SUM(p.amount), COUNT(p.rental_id) 
+FROM payment p
+GROUP BY MONTH(payment_date)
+ORDER BY SUM(p.amount ) DESC
+LIMIT 1;
